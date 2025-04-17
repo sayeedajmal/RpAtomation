@@ -1,0 +1,8 @@
+selenium  # Used for automating web browser scrapping.
+webdriver-manager  # Manages and automatically downloads the required WebDriver for Selenium (e.g., ChromeDriver).
+pytesseract  # A Python wrapper for Google's Tesseract-OCR Engine, used for Optical Character Recognition (OCR) to extract text from images.
+pillow  # Python Imaging Library (PIL) fork, used for opening, manipulating, and saving image files.
+pandas  # Powerful data analysis and manipulation library for Python, widely used for working with structured data (like CSV or DataFrames).
+python-dateutil  # Provides powerful extensions to the standard datetime module, making date and time manipulation easier.
+
+# brew install tesseract
