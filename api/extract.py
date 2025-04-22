@@ -67,7 +67,7 @@ def extract_invoice_data(image_path):
 
         # Clean quotes
         if company_name:
-            company_name = company_name.replace("‘", "").replace("’", "").replace('"', "").strip()
+            company_name = company_name.replace("'", "").replace("'", "").replace('"', "").strip()
 
         if invoice_number and invoice_date and company_name and total_due:
             return invoice_number, invoice_date, company_name, total_due
@@ -84,45 +84,56 @@ def process_invoices():
     invoices_data = []
     today_date = datetime.today().date()
 
-    for i in range(1, 13):
-        image_filename = f"{i}.jpg"
+    # Get all files in the invoices directory
+    invoice_files = [f for f in os.listdir(INPUT_DIR) if os.path.isfile(os.path.join(INPUT_DIR, f)) 
+                    and f.lower().endswith(('.jpg', '.jpeg', '.png'))]
+    
+    for image_filename in invoice_files:
+        # Get the invoice ID from the filename (remove extension)
+        invoice_id = os.path.splitext(image_filename)[0]
         image_path = os.path.join(INPUT_DIR, image_filename)
+        
+        print(f"🔢 Extracting data from {image_filename}...")
+        extracted_data = extract_invoice_data(image_path)
 
-        if os.path.exists(image_path):
-            print(f"🔢 Extracting data from {image_filename}...")
-            extracted_data = extract_invoice_data(image_path)
+        if extracted_data:
+            invoice_number, invoice_date, company_name, total_due = extracted_data
 
-            if extracted_data:
-                invoice_number, invoice_date, company_name, total_due = extracted_data
+            try:
+                # Convert invoice date to DD-MM-YYYY format
+                invoice_date_obj = datetime.strptime(invoice_date, "%b %d, %Y")
+                formatted_invoice_date = invoice_date_obj.strftime("%d-%m-%Y")
+                
+                # Calculate due date (assuming it's in the past so we can't extract it)
+                # This is just a placeholder - in a real scenario you would extract this data
+                due_date = "25-02-2019"  # Placeholder
+                
+                # Format total due without '$' and with proper decimal
+                total_amount = total_due.replace("$", "").strip()
+                
+                if invoice_date_obj.date() <= today_date:
+                    invoices_data.append([
+                        invoice_id,
+                        due_date,
+                        invoice_number,
+                        formatted_invoice_date,
+                        company_name,
+                        total_amount
+                    ])
+                else:
+                    print(f"❌ Skipping {image_filename} - Due date is in the future.")
 
-                try:
-                    invoice_date_obj = datetime.strptime(invoice_date, "%b %d, %Y").date()
-
-                    if invoice_date_obj <= today_date:
-                        invoices_data.append([
-                            image_filename.strip(),
-                            invoice_number.strip(),
-                            invoice_date.strip(),
-                            company_name.strip(),
-                            total_due.strip()
-                        ])
-                    else:
-                        print(f"❌ Skipping {image_filename} - Due date {invoice_date_obj} is in the future.")
-
-                except Exception as e:
-                    print(f"❌ Failed to process date for {image_filename}: {e}")
-            else:
-                print(f"❌ Failed to extract data from {image_filename}")
+            except Exception as e:
+                print(f"❌ Failed to process date for {image_filename}: {e}")
         else:
-            print(f"⚠️ {image_filename} not found.")
+            print(f"❌ Failed to extract data from {image_filename}")
 
     with open(OUTPUT_CSV, "w", newline="") as f:
         writer = csv.writer(f)
-        writer.writerow(["Invoice Filename", "Invoice Number", "Invoice Date", "Company Name", "Total Due"])
+        writer.writerow(["ID", "DueDate", "InvoiceNo", "InvoiceDate", "CompanyName", "TotalDue"])
         writer.writerows(invoices_data)
 
     print(f"\n🏁 Done. Extracted data saved in {OUTPUT_CSV}")
 
-# === RUN THE SCRIPT ===
 if __name__ == "__main__":
     process_invoices()

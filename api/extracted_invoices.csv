@@ -1,13 +1,7 @@
-Invoice Filename,Invoice Number,Invoice Date,Company Name,Total Due
-1.jpg,11577,"Jun 30, 2019",Sit Amet Corp.,"$17,310.00"
-2.jpg,13759,"Jun 19, 2019",Sit Amet Corp.,$879.60
-3.jpg,16892,"Jun 1, 2019",Sit Amet Corp.,"$21,442.80"
-4.jpg,16996,"Jun 20, 2019",Sit Amet Corp.,"$2,100.00"
-5.jpg,18752,"Jul 1, 2019",Sit Amet Corp.,"$1,204.80"
-6.jpg,11448,"Jun 26, 2019",Sit Amet Corp.,"$7,288.80"
-7.jpg,284228,"Jun 28, 2019",Aenean LLC,$1800.00
-8.jpg,284232,"Jun 15, 2019",Aenean LLC,$1009.80
-9.jpg,284212,"Jun 02, 2019",Aenean LLC,$4139.60
-10.jpg,284213,"Jun 03, 2019",Aenean LLC,$9778.40
-11.jpg,284210,"Jun 01, 2019",Aenean LLC,$3000.00
-12.jpg,284221,"Jun 20, 2019",Aenean LLC,$6300.00
+ID,DueDate,InvoiceNo,InvoiceDate,CompanyName,TotalDue
+dobny3ocfx9z8pa3hmpqb8,04-03-2025,284232,15-06-2019,Aenean LLC,1009.80
+cq1y4gq7n8d7hb928ftvu,06-04-2025,284213,03-06-2019,Aenean LLC,9778.40
+k6fzjzvlvotea4msqrbf,16-04-2025,284210,01-06-2019,Aenean LLC,3000.00
+vg6v14kpe9kwpztlk92z9i,14-03-2025,284212,02-06-2019,Aenean LLC,4139.60
+zykyw4avu9e8bbxl2b1kbq,07-04-2025,284221,20-06-2019,Aenean LLC,6300.00
+45gil4oj5epi19fxjjo2jj,12-03-2025,284228,28-06-2019,Aenean LLC,1800.00
